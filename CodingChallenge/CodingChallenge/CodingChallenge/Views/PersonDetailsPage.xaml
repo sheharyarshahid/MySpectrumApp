@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CodingChallenge.Views.PersonDetailsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:effects="clr-namespace:CodingChallenge.Effects"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="True">
+
+    <NavigationPage.TitleView>
+        <Label
+            Margin="{OnPlatform iOS='0,12,0,0'}"
+            Text="{Binding Person.FirstName}"
+            TextColor="{OnPlatform Android=White,
+                                   iOS=Black}" />
+    </NavigationPage.TitleView>
+
+    <Grid RowDefinitions="Auto, Auto, *, Auto, Auto">
+
+        <Frame
+            Margin="24"
+            Padding="0"
+            BorderColor="DarkGray"
+            CornerRadius="{OnPlatform Android=100,
+                                      iOS=50}"
+            HasShadow="False"
+            HeightRequest="100"
+            HorizontalOptions="Center"
+            IsClippedToBounds="True"
+            WidthRequest="100">
+            <Image
+                x:Name="PersonAvatarImg"
+                HorizontalOptions="Center"
+                Source="{Binding Person.Avatar}"
+                WidthRequest="100" />
+        </Frame>
+
+        <Button
+            Grid.Row="1"
+            Margin="12"
+            BackgroundColor="Transparent"
+            Clicked="ChangePersonImageBtn_Clicked"
+            CornerRadius="25"
+            Text="Change Image"
+            TextColor="Gray" />
+
+        <StackLayout Grid.Row="2" HorizontalOptions="Center">
+            <Label
+                FontSize="Large"
+                HorizontalTextAlignment="Center"
+                Text="{Binding Person.FullName}"
+                TextColor="Black" />
+
+            <Label HorizontalTextAlignment="Center" Text="{Binding Person.Email}" />
+
+            <Label
+                Margin="0,24,0,0"
+                Padding="24"
+                FontSize="{OnPlatform Android=Subtitle,
+                                      iOS=Small}"
+                Text="{Binding PlantDesc}" />
+        </StackLayout>
+
+        <Grid
+            Grid.Row="3"
+            ColumnDefinitions="*, *"
+            IsVisible="{Binding Person.IsPlantVisible, Mode=OneWay}">
+            <Image
+                HorizontalOptions="Center"
+                Source="{Binding PlantImg}"
+                VerticalOptions="Center"
+                WidthRequest="80" />
+
+            <StackLayout
+                Grid.Column="1"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+                <Label
+                    FontSize="Title"
+                    HorizontalOptions="Center"
+                    Text="{Binding Person.PlantationCount, Mode=OneWay}" />
+                <Label Text="Planted" />
+            </StackLayout>
+        </Grid>
+
+        <Grid
+            Grid.Row="4"
+            Margin="24"
+            ColumnDefinitions="*, 12, *">
+
+            <Button
+                BackgroundColor="DarkCyan"
+                Command="{Binding PlantTreeCommand}"
+                CornerRadius="8"
+                HorizontalOptions="FillAndExpand"
+                IsEnabled="{Binding Person.IsPlantVisible, Mode=OneWay, Converter={StaticResource InvertBoolConverter}}"
+                Text="Plant a Tree"
+                TextColor="White">
+                <Button.Effects>
+                    <effects:DisabledButtonEffect />
+                </Button.Effects>
+            </Button>
+
+            <Button
+                Grid.Column="2"
+                BackgroundColor="#e7e7e7"
+                Command="{Binding IncrementPlantCommand}"
+                CornerRadius="8"
+                HorizontalOptions="FillAndExpand"
+                IsEnabled="{Binding Person.IsPlantVisible, Mode=OneWay}"
+                Text="Log Action"
+                TextColor="Black" />
+        </Grid>
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="CodingChallenge.Views.LoginPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:CodingChallenge.Behaviors"
+    xmlns:controls="clr-namespace:CodingChallenge.Controls">
+
+    <Grid Padding="12" RowDefinitions="Auto, *">
+
+        <Grid Margin="0,42,0,0" RowDefinitions="Auto, Auto">
+            <Image
+                HeightRequest="80"
+                HorizontalOptions="Center"
+                Source="{Binding LoginAvatar}"
+                WidthRequest="80" />
+            <Label
+                Grid.Row="1"
+                FontAttributes="Bold"
+                FontSize="Medium"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Text="My Spectrum App" />
+        </Grid>
+
+        <StackLayout
+            Grid.Row="1"
+            Padding="16,0"
+            Spacing="16"
+            VerticalOptions="Center">
+            <Label FontSize="Caption" Text="Keypass should be atleast 4 numeric characters" />
+
+            <controls:KeyPassEntry Placeholder="Enter keypass to login">
+                <controls:KeyPassEntry.Behaviors>
+                    <behaviors:KeyPassValidator />
+                </controls:KeyPassEntry.Behaviors>
+            </controls:KeyPassEntry>
+
+            <Button
+                Margin="0,50,0,0"
+                BackgroundColor="DarkCyan"
+                Clicked="LoginBtn_Clicked"
+                CornerRadius="25"
+                HorizontalOptions="Center"
+                IsEnabled="{Binding IsKeyPassValid, Mode=OneWay}"
+                Text="Login"
+                TextColor="White"
+                WidthRequest="160" />
+        </StackLayout>
+    </Grid>
+
+</ContentPage>
+

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CodingChallenge.Views.PersonsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:models="clr-namespace:CodingChallenge.Models"
+    ios:Page.UseSafeArea="True">
+
+    <Grid RowDefinitions="Auto, Auto, *">
+
+        <Label
+            Margin="12"
+            FontSize="Medium"
+            HorizontalOptions="Center"
+            Text="My Spectrum App" />
+
+        <SearchBar Grid.Row="1" TextChanged="SearchBar_TextChanged" />
+
+        <CollectionView
+            x:Name="PersonsCollectionView"
+            Grid.Row="2"
+            ItemsSource="{Binding Persons}"
+            SelectionChanged="CollectionView_SelectionChanged"
+            SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Person">
+                    <Grid Padding="12" ColumnDefinitions="Auto, 12, *, Auto">
+                        <Image Source="{Binding Avatar}" WidthRequest="50" />
+
+                        <Label
+                            Grid.Column="2"
+                            FontAttributes="Bold"
+                            Text="{Binding FirstName}"
+                            VerticalOptions="Center" />
+
+                        <Label
+                            Grid.Column="3"
+                            FontSize="Medium"
+                            HorizontalOptions="Center"
+                            Text="&gt;"
+                            VerticalOptions="Center" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>
